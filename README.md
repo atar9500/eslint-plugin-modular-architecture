@@ -40,6 +40,8 @@ Then configure the rules you want to use under the rules section.
 
 <!-- begin auto-generated rules list -->
 
-TODO: Run eslint-doc-generator to generate the rules list.
+| Name                                                   | Description                               |
+| :----------------------------------------------------- | :---------------------------------------- |
+| [import-export-only](docs/rules/import-export-only.md) | Enforce import/export only on index files |
 
 <!-- end auto-generated rules list -->
