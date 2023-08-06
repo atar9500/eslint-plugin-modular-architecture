@@ -7,14 +7,14 @@
 const rule = require('../../../lib/rules/import-export-only');
 const {RuleTester} = require('eslint');
 
-const ES6_OPTIONS = {
-  ecmaVersion: 'latest',
-  sourceType: 'module',
-};
+const ruleTester = new RuleTester({
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+});
 
-const ruleTester = new RuleTester();
-
-const VALID_CASES_ES6 = [
+const VALID_CASES = [
   `export * from "foo";`,
   `export {foo} from "bar";`,
   `export {foo, bar} from "foobar";`,
@@ -33,61 +33,45 @@ const VALID_CASES_ES6 = [
   `import foo from "bar";\nexport const bar = foo;`,
 ];
 
-const generateValidCases = filename =>
-  VALID_CASES_ES6.map(code => ({
-    code,
-    filename,
-    parserOptions: ES6_OPTIONS,
-  }));
-
-const INVALID_CASES_VAR = [
-  `const foo = 'bar'`,
+const INVALID_CASES = [
+  `const foo = bar;`,
   `import bar from "bar";\nconst foo = bar;`,
   `const foo = 'bar';\nexport default bar;`,
-];
-
-const INVALID_CASES_EXPR = [
+  `console.log('Hello World!');`,
   `import bar from "bar";\nconsole.log('Hello World!');`,
   `console.log('Hello World!');\nexport default bar;`,
 ];
 
-const generateInvalidCases = filename => [
-  ...INVALID_CASES_VAR.map(code => ({
+const generateValidCases = filename =>
+  VALID_CASES.map(code => ({code, filename}));
+
+const generateIgnoreFilesTestCases = filename =>
+  INVALID_CASES.map(code => ({
     code,
     filename,
-    parserOptions: ES6_OPTIONS,
-    errors: [
-      {
-        message: 'Only import/export statements is allowed in this file',
-        type: 'VariableDeclaration',
-      },
-    ],
-  })),
-  ...INVALID_CASES_EXPR.map(code => ({
+    options: [{ignoreFiles: [filename]}],
+  }));
+
+const generateInvalidCases = filename =>
+  INVALID_CASES.map(code => ({
     code,
     filename,
-    parserOptions: ES6_OPTIONS,
-    errors: [
-      {
-        message: 'Only import/export statements is allowed in this file',
-        type: 'ExpressionStatement',
-      },
-    ],
-  })),
-];
+    errors: [{messageId: 'noExport'}],
+  }));
 
 ruleTester.run('import-export-only', rule, {
   valid: [
-    ...generateValidCases('index.js'),
-    ...generateValidCases('index.ts'),
-    ...['foobar.js', 'foobar.ts'].map(filename => ({
+    ...['./src/module/foobar.js', './src/module/foobar.ts'].map(filename => ({
       code: `const foo = 'bar';`,
       filename,
-      parserOptions: ES6_OPTIONS,
     })),
+    ...generateValidCases('./src/module/index.js'),
+    ...generateValidCases('./src/module/index.ts'),
+    ...generateIgnoreFilesTestCases('./src/module/index.js'),
+    ...generateIgnoreFilesTestCases('./src/module/index.ts'),
   ],
   invalid: [
-    ...generateInvalidCases('index.js'),
-    ...generateInvalidCases('index.ts'),
+    ...generateInvalidCases('./src/module/index.js'),
+    ...generateInvalidCases('./src/module/index.ts'),
   ],
 });
