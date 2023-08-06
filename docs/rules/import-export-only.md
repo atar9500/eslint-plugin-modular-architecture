@@ -36,13 +36,13 @@ export * from './utils';
 
 ### Options
 
-By default this rule is enabled with `["^./index.(js|ts)"]` option for `ignoreFiles`.
+By default this rule is enabled with `["./index.*"]` option for `ignoredFiles`.
 
-#### ignoreFiles
+#### ignoredFiles
 
-The `ignoreFiles` option accepts an array of strings representing index files to be exempt from this rule.
+The `ignoredFiles` option accepts an array of strings representing index files to be exempt from this rule.
 
-Examples of **correct** code for the with `{ignoredFiles: ["./src/somewhere/index.js"]}`:
+Examples of **correct** code for the with `{ignoredFiles: ["./src/**/index.*"]}`:
 
 ```js
 // ./src/somewhere/index.js

@@ -45,11 +45,11 @@ const INVALID_CASES = [
 const generateValidCases = filename =>
   VALID_CASES.map(code => ({code, filename}));
 
-const generateIgnoreFilesTestCases = filename =>
+const generateignoredFilesTestCases = filename =>
   INVALID_CASES.map(code => ({
     code,
     filename,
-    options: [{ignoreFiles: [filename]}],
+    options: [{ignoredFiles: ['./src/**/index.*']}],
   }));
 
 const generateInvalidCases = filename =>
@@ -67,8 +67,8 @@ ruleTester.run('import-export-only', rule, {
     })),
     ...generateValidCases('./src/module/index.js'),
     ...generateValidCases('./src/module/index.ts'),
-    ...generateIgnoreFilesTestCases('./src/module/index.js'),
-    ...generateIgnoreFilesTestCases('./src/module/index.ts'),
+    ...generateignoredFilesTestCases('./src/module1/index.js'),
+    ...generateignoredFilesTestCases('./src/module2/index.ts'),
   ],
   invalid: [
     ...generateInvalidCases('./src/module/index.js'),
