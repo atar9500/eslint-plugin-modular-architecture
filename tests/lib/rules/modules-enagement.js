@@ -24,15 +24,17 @@ const ruleTester = new RuleTester({
 
 ruleTester.run('modules-enagement', rule, {
   valid: [
-    // give me some code that won't trigger a warning
+    {
+      code: "import foo from '../bar/internal/folder'",
+      filename: '/src/foo/components/bar.js',
+    },
   ],
 
   invalid: [
     {
-      code: "import foo from '../../bar/internal/folder'",
-      filename:
-        '/Users/atar/Documents/Projects/eslint-plugin-modular-architecture/src/foo/components/bar.js',
-      errors: [{message: 'Fill me in.', type: 'Me too'}],
+      code: "import foo from '../../../bar/internal/folder'",
+      filename: '/src/foo/components/bar.js',
+      errors: [{messageId: 'absoluteImport'}],
       only: true,
     },
   ],
