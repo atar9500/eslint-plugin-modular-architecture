@@ -14,6 +14,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error'],
+    'no-console': ['warn', {allow: ['error', 'warn']}],
   },
   overrides: [
     {
