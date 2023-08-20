@@ -35,7 +35,6 @@ ruleTester.run('modules-enagement', rule, {
       code: "import foo from '../../../bar/internal/folder'",
       filename: '/src/foo/components/bar.js',
       errors: [{messageId: 'absoluteImport'}],
-      only: true,
     },
   ],
 });
