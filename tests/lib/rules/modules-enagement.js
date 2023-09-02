@@ -26,15 +26,23 @@ ruleTester.run('modules-enagement', rule, {
   valid: [
     {
       code: "import foo from '../bar/internal/folder'",
-      filename: '/src/foo/components/bar.js',
+      filename: '/src/foo/components/bar.ts',
+    },
+    {
+      code: "import foo from '~/bar'",
+      filename: '/src/app/components/App.tsx',
     },
   ],
-
   invalid: [
     {
       code: "import foo from '../../../bar/internal/folder'",
-      filename: '/src/foo/components/bar.js',
+      filename: '/src/foo/components/bar.ts',
       errors: [{messageId: 'absoluteImport'}],
+    },
+    {
+      code: "import foo from '~/bar'",
+      filename: '/src/foo/components/App.tsx',
+      errors: [{messageId: 'moduleReference'}],
     },
   ],
 });
