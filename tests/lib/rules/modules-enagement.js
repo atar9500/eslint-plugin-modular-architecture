@@ -32,6 +32,14 @@ ruleTester.run('modules-enagement', rule, {
       code: "import foo from '~/bar'",
       filename: '/src/app/components/App.tsx',
     },
+    {
+      code: "import foo from '~/shared/utils/getFoobar'",
+      filename: '/src/bar/components/App.tsx',
+    },
+    {
+      code: "import foo from '~/common/utils/getFoobar'",
+      filename: '/src/bar/components/App.tsx',
+    },
   ],
   invalid: [
     {
@@ -43,6 +51,11 @@ ruleTester.run('modules-enagement', rule, {
       code: "import foo from '~/bar'",
       filename: '/src/foo/components/App.tsx',
       errors: [{messageId: 'moduleReference'}],
+    },
+    {
+      code: "import foo from '~/bar/folder/inside'",
+      filename: '/src/app/components/App.tsx',
+      errors: [{messageId: 'moduleIndex'}],
     },
   ],
 });
