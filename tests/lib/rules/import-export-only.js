@@ -7,12 +7,20 @@
 const rule = require('../../../lib/rules/import-export-only');
 const {RuleTester} = require('eslint');
 
+//------------------------------------------------------------------------------
+// Requirements
+//------------------------------------------------------------------------------
+
 const ruleTester = new RuleTester({
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
 });
+
+//------------------------------------------------------------------------------
+// Tests
+//------------------------------------------------------------------------------
 
 const VALID_CASES = [
   `export * from "foo";`,
