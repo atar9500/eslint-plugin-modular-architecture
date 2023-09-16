@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-modular-architecture",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An ESlint plugin to enforce modular architecture and encapsulation",
   "keywords": [
     "eslint",
