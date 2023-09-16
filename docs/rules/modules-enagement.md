@@ -18,25 +18,25 @@ Examples of **incorrect** code for this rule:
 
 ```ts
 /**
- * Violation of the `Unidirectional Flow` rule
+ * Violation of the `Unidirectional Flow` rule ❌
  * Inside file: ./src/shared/components/Button.tsx
  */
 import App from '~/app';
 
 /**
- * Violation of the `Unidirectional Flow` rule
+ * Violation of the `Unidirectional Flow` rule ❌
  * Inside file: ./src/shared/components/App.tsx
  */
 import FooBar from '~/foobar';
 
 /**
- * Violation of the `Explicit Exports` rule
+ * Violation of the `Explicit Exports` rule ❌
  * Inside file: ./src/app/components/App.tsx
  */
 import FooBar from '~/foobar/inner/path/FooBar.tsx';
 
 /**
- * Violation of the `Explicit Exports` rule
+ * Violation of the `Explicit Exports` rule ❌
  * Inside file: ./src/foobar/inner-path/FooBar.tsx
  */
 import randomNumber from '../../shared/utils/randomNumber.ts';
@@ -46,13 +46,13 @@ Examples of **correct** code for this rule:
 
 ```js
 /**
- * Aligns with Rules of Engagement
+ * Aligns with Rules of Engagement ✅
  * Inside file: ./src/app/components/App.tsx
  */
 import FooBar from '~/foobar';
 
 /**
- * Aligns with Rules of Engagement
+ * Aligns with Rules of Engagement ✅
  * Inside file: ./src/foobar/inner/path/FooBar.tsx
  */
 import randomNumber from '~/shared/utils/randomNumber';
@@ -70,6 +70,22 @@ The `modulesPath` option defines the folder in which to enforce the **Rules of E
 
 The `glob` option provides an option to lint only certain paths within the path defined in the `modulesPath` option.
 
+When setting `[{glob: ".ts"}]`:
+
+```ts
+/**
+ * Inside file: ./src/foobar/components/FooBar.ts
+ * This WOULD NOT BE ignored ❌
+ */
+import BarFoo from '~/barfoo';
+
+/**
+ * Inside file: ./src/barfoo/components/BarFoo.tsx
+ * This WOULD BE ignored ✅
+ */
+import FooBar from '~/foobar';
+```
+
 #### `moduleLayers`
 
 The `moduleLayers` option describes the hierarchy between the project modules. By default, any module that is not mentioned in this option is considered to have `0` in value (i.e, between `shared`/`common` & `app`).
@@ -80,17 +96,65 @@ The `moduleLayers` option describes the hierarchy between the project modules. B
   common: Number.MIN_SAFE_INTEGER,
 }`
 
+When setting `[{moduleLayers: {foobar: 2}}]`:
+
+```ts
+/**
+ * Inside file: ./src/barfoo/components/BarFoo.tsx
+ * This WOULD NOT work ❌
+ */
+import FooBar from '~/foobar';
+
+/**
+ * Inside file: ./src/foobar/components/FooBar.tsx
+ * This WOULD work ✅
+ */
+import BarFoo from '~/barfoo';
+```
+
 #### `moduleImportLevels`
 
-The `moduleLayers` option provides an option to define the maximum import level from each module. By default, any module that is not mentioned in this option is considered to have `1` in value.
+The `moduleImportLevels` option provides an option to define the maximum import level from each module. By default, any module that is not mentioned in this option is considered to have `1` in value.
 
 **Default:** `{common: 3, shared: 3, app: 1}`
+
+When setting `[{moduleImportLevels: {foobar: 3}}]`:
+
+```ts
+// Inside file: ./src/app/components/App.tsx
+
+/**
+ * This WOULD NOT work ❌
+ */
+import FooBar from '~/foobar/inner/folder/FooBar.tsx';
+
+/**
+ * This WOULD work ✅
+ */
+import FooBar from '~/foobar/inner/FooBar.tsx';
+```
 
 #### `alias`
 
 This option allows to define an alias for external imports (imports outside of the current module, i.e `shared` to `app`).
 
 **Default:** `~`
+
+When setting `[{alias: '@alias'}]`:
+
+```ts
+// Inside file: ./src/app/components/App.tsx
+
+/**
+ * This WOULD NOT work ❌
+ */
+import FooBar from '~/foobar';
+
+/**
+ * This WOULD work ✅
+ */
+import FooBar from '@alias/foobar';
+```
 
 ## When Not To Use It
 
