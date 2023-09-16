@@ -70,7 +70,7 @@ The `modulesPath` option defines the folder in which to enforce the **Rules of E
 
 The `glob` option provides an option to lint only certain paths within the path defined in the `modulesPath` option.
 
-When setting `[{glob: ".ts"}]`:
+When setting `[{glob: "**/*.ts"}]`:
 
 ```ts
 /**

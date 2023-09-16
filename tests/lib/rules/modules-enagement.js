@@ -68,7 +68,7 @@ ruleTester.run('modules-enagement', rule, {
     {
       code: "import foo from '~/bar'",
       filename: '/src/shared/components/App.tsx',
-      options: [{glob: '/shared/**/*.ts'}],
+      options: [{glob: '**/*.ts'}],
     },
   ],
   invalid: [
@@ -127,7 +127,7 @@ ruleTester.run('modules-enagement', rule, {
     {
       code: "import foo from '~/bar'",
       filename: '/src/shared/components/App.tsx',
-      options: [{glob: '/shared/**/*.tsx'}],
+      options: [{glob: '**/*.tsx'}],
       errors: [{messageId: 'moduleReference'}],
     },
   ],
