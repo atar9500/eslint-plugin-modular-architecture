@@ -55,6 +55,21 @@ ruleTester.run('modules-enagement', rule, {
       filename: '/src/app/components/App.tsx',
       options: [{alias: '@cool'}],
     },
+    {
+      code: "import foo from '~/bar'",
+      filename: '/foobar/app/components/App.tsx',
+      options: [{modulesPath: '/foobar'}],
+    },
+    {
+      code: "import foo from '~/bar'",
+      filename: '/src/shared/components/App.tsx',
+      options: [{modulesPath: '/foobar'}],
+    },
+    {
+      code: "import foo from '~/bar'",
+      filename: '/src/shared/components/App.tsx',
+      options: [{glob: '/shared/**/*.ts'}],
+    },
   ],
   invalid: [
     {
@@ -107,6 +122,12 @@ ruleTester.run('modules-enagement', rule, {
       code: "import foo from '~/bar'",
       filename: '/src/app/components/App.tsx',
       options: [{alias: '@cool'}],
+      errors: [{messageId: 'moduleReference'}],
+    },
+    {
+      code: "import foo from '~/bar'",
+      filename: '/src/shared/components/App.tsx',
+      options: [{glob: '/shared/**/*.tsx'}],
       errors: [{messageId: 'moduleReference'}],
     },
   ],
