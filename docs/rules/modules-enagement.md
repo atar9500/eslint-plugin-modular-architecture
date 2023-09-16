@@ -101,13 +101,13 @@ When setting `[{moduleLayers: {foobar: 2}}]`:
 ```ts
 /**
  * Inside file: ./src/barfoo/components/BarFoo.tsx
- * This WOULD NOT work ❌
+ * This is INCORRECT ❌
  */
 import FooBar from '~/foobar';
 
 /**
  * Inside file: ./src/foobar/components/FooBar.tsx
- * This WOULD work ✅
+ * This is CORRECT ✅
  */
 import BarFoo from '~/barfoo';
 ```
@@ -124,12 +124,12 @@ When setting `[{moduleImportLevels: {foobar: 3}}]`:
 // Inside file: ./src/app/components/App.tsx
 
 /**
- * This WOULD NOT work ❌
+ * This is INCORRECT ❌
  */
 import FooBar from '~/foobar/inner/folder/FooBar.tsx';
 
 /**
- * This WOULD work ✅
+ * This is CORRECT ✅
  */
 import FooBar from '~/foobar/inner/FooBar.tsx';
 ```
@@ -146,12 +146,12 @@ When setting `[{alias: '@alias'}]`:
 // Inside file: ./src/app/components/App.tsx
 
 /**
- * This WOULD NOT work ❌
+ * This is INCORRECT ❌
  */
 import FooBar from '~/foobar';
 
 /**
- * This WOULD work ✅
+ * This is CORRECT ✅
  */
 import FooBar from '@alias/foobar';
 ```
