@@ -1,6 +1,6 @@
-# A rule to enforce engagement between modules (`modules-enagement`)
+# Rules of Engagement (`modules-enagement`)
 
-This ESLint rule promotes clean and maintainable code by enforcing two key principles, also called **Rules of Engagement**:
+This ESLint rule promotes clean and maintainable code, i.e, **Rules of Engagement**, by enforcing two key principles:
 
 1. **Unidirectional Flow**: Modules should reference items either internally or at a lower level within the codebase, ensuring a unidirectional flow of dependencies for enhanced clarity and maintainability.
 
@@ -58,12 +58,42 @@ import randomNumber from '~/shared/utils/randomNumber';
 
 ### Options
 
-If there are any options, describe them here. Otherwise, delete this section.
+#### `modulesPath`
+
+The `modulesPath` option defines the folder in which to enforce the **Rules of Engagement**, usually it'll be the source folder.
+
+**Default:** `"/src"`
+
+#### `glob`
+
+The `glob` option provides an option to lint only certain paths within the path defined in the `modulesPath` option.
+
+#### `moduleLayers`
+
+The `moduleLayers` option describes the hierarchy between the project modules. By default, any module that is not mentioned in this option is considered to have `0` in value (i.e, between `shared`/`common` & `app`).
+
+**Default:** `{
+  app: Number.MAX_SAFE_INTEGER,
+  shared: Number.MIN_SAFE_INTEGER,
+  common: Number.MIN_SAFE_INTEGER,
+}`
+
+#### `moduleImportLevels`
+
+The `moduleLayers` option provides an option to define the maximum import level from each module. By default, any module that is not mentioned in this option is considered to have `1` in value.
+
+**Default:** `{common: 3, shared: 3, app: 1}`
+
+#### `alias`
+
+This option allows to define an alias for external imports (imports outside of the current module, i.e `shared` to `app`).
+
+**Default:** `~`
 
 ## When Not To Use It
 
-Give a short description of when it would be appropriate to turn off this rule.
+When you don't want to follow `Rules of Engagement`.
 
 ## Further Reading
 
-If there are other links that describe the issue this rule addresses, please include them here in a bulleted list.
+🚧 Proper documentation in progress 🚧
