@@ -6,7 +6,9 @@ This ESLint rule promotes clean and maintainable code, i.e, **Rules of Engagemen
 
 2. **Explicit Exports**: Each module must explicitly expose its functionality through exports defined in its top-level index file. This practice enhances code transparency and eliminates hidden dependencies.
 
-   **_Exception_**: This rule allows flexibility for shared modules, where access is permitted at any level, acknowledging practical considerations in such cases.
+   **_Exception_**: This rule allows flexibility for shared modules, where access can be permitted at a deeper level, acknowledging practical considerations in such cases.
+
+3. **Import Aliases for Clarity**: In addition to the above principles, it's highly recommended to use import aliases when dealing with cross-modular imports. Import aliases help differentiate between internal, external and library imports, enhancing code readability and reducing the chance of unintended circular dependencies.
 
 By adhering to these guidelines, your codebase becomes more comprehensible and less prone to complex dependencies, facilitating efficient development and debugging.
 
