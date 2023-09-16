@@ -31,7 +31,8 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "modular-architecture/import-export-only": 2
+    "modular-architecture/import-export-only": 2,
+    "modular-architecture/modules-engagement": 2
   }
 }
 ```
@@ -43,5 +44,6 @@ Then configure the rules you want to use under the rules section.
 | Name                                                   | Description                               |
 | :----------------------------------------------------- | :---------------------------------------- |
 | [import-export-only](docs/rules/import-export-only.md) | Enforce import/export only on index files |
+| [modules-engagement](docs/rules/modules-engagement.md) | Enforce the rules of engagement           |
 
 <!-- end auto-generated rules list -->

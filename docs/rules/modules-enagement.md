@@ -1,6 +1,6 @@
 # Rules of Engagement (`modules-enagement`)
 
-This ESLint rule promotes clean and maintainable code, i.e, **Rules of Engagement**, by enforcing two key principles:
+This ESLint rule promotes clean and maintainable code, i.e, **Rules of Engagement**, by enforcing three key principles:
 
 1. **Unidirectional Flow**: Modules should reference items either internally or at a lower level within the codebase, ensuring a unidirectional flow of dependencies for enhanced clarity and maintainability.
 
