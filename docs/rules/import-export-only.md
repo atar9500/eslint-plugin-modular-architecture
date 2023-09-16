@@ -1,18 +1,17 @@
 # Enforce import/export only on index files (`modular-architecture/import-export-only`)
 
-<!-- end auto-generated rule header -->
-
 An index file serves as a boundary for directories. When a directory contains an index file, code outside that directory can only accessed the exported items from the index file and cannot access anything else.
 
 ## Rule Details
 
 This rule is intended to remove any extra code from index files, other than imports and exports.
 
-Examples of **incorrect** code for this rule:
-
 ```js
-// index.js
+// Inside file: ./src/home/index.js
 
+/**
+ * This is INCORRECT ❌
+ */
 import {default as HomePage} from './components/HomePage';
 
 console.error('This should not be here!');
@@ -20,13 +19,10 @@ console.error('This should not be here!');
 const foo = '...neither this one';
 
 export default HomePage;
-```
 
-Examples of **correct** code for this rule:
-
-```js
-// index.js
-
+/**
+ * This is CORRECT ✅
+ */
 import {default as HomePage} from './components/HomePage';
 export default HomePage;
 
@@ -45,8 +41,11 @@ The `ignoredFiles` option accepts an array of strings representing index files t
 Examples of **correct** code for the with `{ignoredFiles: ["./src/**/index.*"]}`:
 
 ```js
-// ./src/somewhere/index.js
+// Inside file: ./src/somewhere/index.js
 
+/**
+ * This is CORRECT ✅
+ */
 console.log('I can be here!');
 ```
 
